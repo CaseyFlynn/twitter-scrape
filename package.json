@@ -1,0 +1,23 @@
+{
+  "name": "twitter-scrape",
+  "version": "1.0.0",
+  "description": "simple application to subscribe to twitter streaming api, and record data into mongodb",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CaseyFlynn/twitter-scrape.git"
+  },
+  "author": "Casey Flynn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CaseyFlynn/twitter-scrape/issues"
+  },
+  "homepage": "https://github.com/CaseyFlynn/twitter-scrape#readme",
+  "dependencies": {
+    "twitter": "^1.2.5"
+  }
+}
