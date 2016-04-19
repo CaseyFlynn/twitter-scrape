@@ -17,7 +17,7 @@ var tweetSchema = new mongoose.Schema({
     },
     userLocation: String,
     coordinates: {
-        coordinates: [Number],
+        coordinates: [],
         type: String
     },
     retweetCount: Number,
