@@ -1,25 +1,18 @@
-"use strict";
-
-var Twitter = require('twitter'),
-    mongoose = require('mongoose'),
-    config = require('./config'),
-    streamHandler = require('./utils/streamHandler');
+var Twitter = require('twitter');
  
-//initialize our twitter client
-var TwitterClient = new Twitter(config.twitterConfig);
-
-//create a socket io running on the configured port to retransmit all
-//tweets that have been processed and saved to our database.
-var io = require('socket.io')(config.socketPort);
-
-// Connect to our mongo database
-mongoose.connect('mongodb://localhost/primary-tweets');
-console.log(mongoose.connection.readyState);
-
-//Connect the twitter stream to our stream handler to write the tweets to mongo,
-//then retransmit on our socket port.
-TwitterClient.stream('statuses/filter',config.streamHandles, function(stream) {
-    streamHandler(stream,io);
+var client = new Twitter({
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
-console.log('listening on port 3000');
+client.stream('statuses/filter', {track: 'clinton,sanders,trump,cruz'}, function(stream) {
+  stream.on('data', function(tweet) {
+    console.log(tweet.text);
+  });
+ 
+  stream.on('error', function(error) {
+    throw error;
+  });
+});
