@@ -34,3 +34,4 @@ node_modules
 
 #env vars
 set_vars.sh
+config.js
